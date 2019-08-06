@@ -3,12 +3,10 @@ FROM ubuntu:18.04
 ARG HttpProxy
 ARG HttpsProxy
 ARG NoProxy
-ARG LicenseServer
 
 ENV http_proxy $HttpProxy
 ENV https_proxy $HttpsProxy
 ENV no_proxy $NoProxy
-ENV LicenseServer $LicenseServer
 
 # Install Oracle Java 8:
 
@@ -45,5 +43,4 @@ RUN wget -P /usr/src/ "http://dl.eviware.com/ready-api/license-manager/ready-api
     unzip /usr/src/ready-api-license-manager.zip -d /opt
 
 COPY ./expect /
-RUN apt-get install -yq expect && \
-    /expect
+RUN apt-get install -yq expect
