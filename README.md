@@ -2,7 +2,7 @@
 
 ## overview
 
-git repo for [ryanbartsch/servicev](https://cloud.docker.com/repository/docker/ryanbartsch/servicev) image on Docker Hub
+[ServiceV](https://smartbear.com/product/ready-api/servicev/overview/) base image.
 
 ## install components
 

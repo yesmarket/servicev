@@ -1,0 +1,18 @@
+{
+  "name": "api-mocks",
+  "version": "1.0.0",
+  "description": "Provides a quick an easy way to provision a local or public mock of the auth service, which is required by Azure AD B2C for the JIT user migration.",
+  "scripts": {
+    "build": "@powershell -Command Import-Module -Name ./scripts; Build-ReadyApiDockerfile",
+    "prestart": "npm run build",
+    "start": "@powershell -Command Import-Module -Name ./scripts; Start-ReadyApiDockerContainer",
+    "debug": "@powershell -Command Import-Module -Name ./scripts; Debug-ReadyApiDockerContainer",
+    "stop": "@powershell -Command Import-Module -Name ./scripts; Stop-ReadyApiDockerContainer",
+    "refresh": "npm run stop & git pull & npm run start",
+    "prepublish": "npm run stop & npm run start",
+    "publish": "@powershell -Command Import-Module -Name ./scripts; Publish-ReadyApiVirtualService"
+  },
+  "author": "FlexiGroup",
+  "license": "ISC",
+  "dependencies": {}
+}
