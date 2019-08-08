@@ -3,10 +3,14 @@ FROM ubuntu:18.04
 ARG HttpProxy
 ARG HttpsProxy
 ARG NoProxy
+ARG LicenseServer
+ARG ProjectName=readyapi-proj.xml
 
 ENV http_proxy $HttpProxy
 ENV https_proxy $HttpsProxy
 ENV no_proxy $NoProxy
+ENV LicenseServer $LicenseServer
+ENV ProjectName $ProjectName
 
 # Install Oracle Java 8:
 
@@ -41,6 +45,8 @@ RUN wget -P /usr/src/ "http://dl.eviware.com/ready-api/2.6.0/ReadyAPI-x64-2.6.0.
 # https://support.smartbear.com/readyapi/docs/general-info/licensing/headless/floating.html
 RUN wget -P /usr/src/ "http://dl.eviware.com/ready-api/license-manager/ready-api-license-manager.zip" && \
     unzip /usr/src/ready-api-license-manager.zip -d /opt
+#RUN printf '4\r' | java -jar /opt/ready-api-license-manager/ready-api-license-manager-1.2.7.jar -s $LicenseServer
 
-COPY ./expect /
 RUN apt-get install -yq expect
+COPY ./expect /
+COPY ./entry.sh /
