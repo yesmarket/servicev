@@ -32,8 +32,10 @@ RUN mkdir -p /usr/lib/jvm && \
     tar -xvf jre-8u221-linux-x64.tar.gz -C /usr/lib/jvm/ && \
     update-alternatives --install /usr/bin/java java /usr/lib/jvm/jre1.8.0_221/bin/java 0
 
+# Install utils:
 RUN apt-get update && \
-    apt-get install -y wget unzip
+    apt-get install -y wget unzip iputils-ping curl && \
+    apt-get install -yq expect
 
 # Install ReadyAPI:
 # https://support.smartbear.com/readyapi/docs/general-info/install/install-headless.html
@@ -47,6 +49,11 @@ RUN wget -P /usr/src/ "http://dl.eviware.com/ready-api/license-manager/ready-api
     unzip /usr/src/ready-api-license-manager.zip -d /opt
 #RUN printf '4\r' | java -jar /opt/ready-api-license-manager/ready-api-license-manager-1.2.7.jar -s $LicenseServer
 
-RUN apt-get install -yq expect
-COPY ./expect /
-COPY ./entry.sh /
+COPY ./expect ./entry.sh /
+
+RUN chmod +x /entry.sh && \
+    chmod +x /expect
+
+RUN mkdir /scripts
+
+ENTRYPOINT /entry.sh
